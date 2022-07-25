@@ -1,0 +1,179 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "ChickenHub", HidePremium = false, SaveConfig = true, ConfigFolder = "ChickenHubConfig"})
+
+if game.PlaceId==4520536611 then
+--fitness Simulator
+
+
+
+--Gui
+local Teleports = Window:MakeTab({
+    Name = "Teleports",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local FarmTab = Window:MakeTab({
+    Name = "AutoFarm",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+-- Auto Lift
+FarmTab:AddToggle({
+    Name = "Auto Lift",
+    Default = false,
+    Callback = function(Value)
+        getgenv().autolift = Value
+        while task.wait() do
+            if getgenv().autolift then
+                game:GetService("ReplicatedStorage").Events.Lift:FireServer()
+            else
+                break
+            end
+        end
+    end    
+})
+-- Auto Sell
+FarmTab:AddToggle({
+    Name = "Auto Sell",
+    Default = false,
+    Callback = function(Value)
+        getgenv().autosell = Value
+        while task.wait() do
+            if getgenv().autosell then
+                game:GetService("ReplicatedStorage").Events.Sell:FireServer()
+            else
+                break
+            end
+        end
+    end    
+})
+-- Auto Buy Weights
+FarmTab:AddToggle({
+    Name = "Auto Buy Weights",
+    Default = false,
+    Callback = function(Value)
+        getgenv().autobuyweights = Value
+        while task.wait() do
+            if getgenv().autobuyweights then
+                game:GetService("ReplicatedStorage").Events["Buy All"]:FireServer("Weights")
+            else
+                break
+            end
+        end
+    end    
+})
+-- Auto Buy Bodies
+FarmTab:AddToggle({
+    Name = "Auto Buy Bodies",
+    Default = false,
+    Callback = function(Value)
+        getgenv().autobuybodies = Value
+        while task.wait() do
+            if getgenv().autosell then
+                game:GetService("ReplicatedStorage").Events["Buy All"]:FireServer("Bodies")
+            else
+                break
+            end
+        end
+    end    
+})
+-- Auto Buy Morphs
+FarmTab:AddToggle({
+    Name = "Auto Buy Morphs",
+    Default = false,
+    Callback = function(Value)
+        getgenv().autobuymorphs = Value
+        while task.wait() do
+            if getgenv().autobuymorphs then
+                game:GetService("ReplicatedStorage").Events["Buy All"]:FireServer("Morphs")
+            else
+                break
+            end
+        end
+    end    
+})
+-- Auto Buy Tier
+FarmTab:AddToggle({
+    Name = "Auto Buy Tier",
+    Default = false,
+    Callback = function(Value)
+        getgenv().autobuytiers = Value
+        while task.wait() do
+            if getgenv().autobuytiers then
+                game:GetService("ReplicatedStorage").Events["Buy All"]:FireServer("Tiers")
+            else
+                break
+            end
+        end
+    end    
+})
+-- Auto Buy Auras
+FarmTab:AddToggle({
+    Name = "Auto Buy Auras",
+    Default = false,
+    Callback = function(Value)
+        getgenv().autobuyauras = Value
+        while task.wait() do
+            if getgenv().autobuyauras then
+                game:GetService("ReplicatedStorage").Events["Buy All"]:FireServer("Auras")
+            else
+                break
+            end
+        end
+    end    
+})
+
+
+FarmTab:AddDropdown({
+    Name = "Boss Select",
+    Default = "",
+    Options = {"","Mega Boss", "Starter Boss"},
+    Callback = function(Value)
+        if Value == "Mega Boss" then 
+            getgenv().BossSelect = game:GetService("Workspace")["Mega Boss"].Model.Boss2
+
+        elseif value == "Starter Boss" then
+            getgenv().BossSelect = game:GetService("Workspace").Boss.Model.Boss
+        end
+        
+        while Value ~= "" do
+            game:GetService("ReplicatedStorage").Events.Damage:FireServer(getgenv().BossSelect)
+            task.wait()
+            
+
+        
+            end
+        end
+})
+Teleports:AddDropdown({
+    Name = "Teleport",
+    Default = "",
+    Options = {"", "Snow", "Desert", "Paradise Island", "Peak Valley", "Dark Island", "Winter Island", "Magic Island", "Cursed Valley", "Magic Valley", "Storm Island", "Gold Island", "Swamp Island"},
+    Callback = function(Value)
+        getgenv().AreaSelect = Value
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Areas[getgenv().AreaSelect].CFrame
+
+    end    
+
+})Teleports:AddButton({
+    Name = "Mega Boss",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace")["Mega Boss"].Arena["Boss Move"]
+      end    
+})
+
+
+
+
+
+
+    end    
+
+
+--------
+
+
+-- Made By ChickenOnAStrip#6969, dm me if any errors or other problems
+
+OrionLib:Init()
